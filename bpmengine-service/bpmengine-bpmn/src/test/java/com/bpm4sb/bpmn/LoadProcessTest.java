@@ -8,7 +8,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import com.didara.bpmn.model.Process;
+//import com.didara.bpmn.model.Process;
 
 import org.junit.Test;
 
@@ -16,9 +16,9 @@ public class LoadProcessTest {
 
 	@Test
 	public void test() {
-		try {
+/*		try {
 			
-			JAXBContext jbctx = JAXBContext.newInstance(/*TDefinitions.class*/"com.bpm4sb.bpmn");
+			JAXBContext jbctx = JAXBContext.newInstance(/ * TDefinitions.class * /"com.bpm4sb.bpmn");
 			Unmarshaller um = jbctx.createUnmarshaller();
 			File fd = new File( "H:\\innovaswc\\bpm4sm\\doc\\example1.bpmn" );
 			
@@ -43,13 +43,13 @@ public class LoadProcessTest {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-		
+*/		
 	}
 
-	private Process loadProcess(TProcess p) {
+	/*private Process loadProcess(TProcess p) {
 		Process result = new Process();
 		result.setId(p.getId());
 		return result;
-	}
+	}*/
 
 }

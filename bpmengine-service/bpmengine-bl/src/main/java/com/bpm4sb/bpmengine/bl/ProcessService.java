@@ -13,5 +13,15 @@ public interface ProcessService {
      * @return
      * @throws ProcessSpecificationNotExistException 
      */
-    public Integer start(Integer processDefId, String startMessage) throws ProcessSpecificationNotExistException;
+    public String start(String processDefId, String startMessage) throws ProcessSpecificationNotExistException;
+    
+    /**
+     * Esta operacion realiza la carga de la definicion de un proceso de negocio sobre el motor de procesos de
+     * negocio.
+     * 
+     * @param bpmnXmlDefinition
+     * @return
+     * @throws ProcessDefinitionNotValidExpception 
+     */
+    public String loadProcessDefinition(String bpmnXmlDefinition) throws ProcessDefinitionNotValidExpception;
 }

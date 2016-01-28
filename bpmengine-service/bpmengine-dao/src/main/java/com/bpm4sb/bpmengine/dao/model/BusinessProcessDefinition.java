@@ -12,6 +12,9 @@ public class BusinessProcessDefinition {
     
     @Column(name = "NAME")
     private String name;
+    
+    @Column(name = "DEFINITION")
+    private String definition;
 
     public BusinessProcessDefinition() {
     }
@@ -36,6 +39,12 @@ public class BusinessProcessDefinition {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
+
+    public String getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
+    }
 }

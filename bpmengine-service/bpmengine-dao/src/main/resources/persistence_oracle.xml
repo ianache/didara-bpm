@@ -7,7 +7,7 @@
     <class>com.bpm4sb.bpmengine.dao.model.BusinessDefinition</class>
 
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/mdr"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@//10.0.0.13:49161/XE"/>
       <property name="javax.persistence.jdbc.user" value="bpm4sb"/>
       <property name="javax.persistence.jdbc.password" value="welcome1"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

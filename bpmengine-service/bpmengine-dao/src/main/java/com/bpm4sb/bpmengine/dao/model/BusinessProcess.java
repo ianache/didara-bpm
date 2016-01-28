@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name="BPM_PROCESSINST")
 public class BusinessProcess {
     @Id @GeneratedValue String id;
-    private @Column(name = "PROCESSDEF_ID") Integer processDefId;
+    private @Column(name = "PROCESSDEF_ID") String processDefId;
     private @Column(name = "CREATEDON") Date createdOn;
 
     public BusinessProcess() {
@@ -25,11 +25,11 @@ public class BusinessProcess {
         this.id = id;
     }
 
-    public Integer getProcessDefId() {
+    public String getProcessDefId() {
         return processDefId;
     }
 
-    public void setProcessDefId(Integer processDefId) {
+    public void setProcessDefId(String processDefId) {
         this.processDefId = processDefId;
     }
 
