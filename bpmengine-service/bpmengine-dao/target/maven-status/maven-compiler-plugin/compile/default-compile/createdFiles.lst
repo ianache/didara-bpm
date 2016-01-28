@@ -1,0 +1,3 @@
+com\bpm4sb\bpmengine\dao\PersistenceManager.class
+com\bpm4sb\bpmengine\dao\model\BusinessProcessDefinition.class
+com\bpm4sb\bpmengine\dao\model\BusinessProcess.class

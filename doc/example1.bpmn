@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:collaboration id="Collaboration_0jk5agh">
+    <bpmn:participant id="Participant_04n7a3y" name="Hola Mundo" processRef="Process_1" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_1" name="Inicio">
+      <bpmn:outgoing>SequenceFlow_0bpxsbn</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1g7vu7y" name="Fin">
+      <bpmn:incoming>SequenceFlow_17e7bv2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0bpxsbn" sourceRef="StartEvent_1" targetRef="UserTask_1wrcp9u" />
+    <bpmn:sequenceFlow id="SequenceFlow_17e7bv2" sourceRef="UserTask_1wrcp9u" targetRef="EndEvent_1g7vu7y" />
+    <bpmn:userTask id="UserTask_1wrcp9u" name="Mostrar Mensaje Hola Mundo">
+      <bpmn:incoming>SequenceFlow_0bpxsbn</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_17e7bv2</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0jk5agh">
+      <bpmndi:BPMNShape id="Participant_04n7a3y_di" bpmnElement="Participant_04n7a3y">
+        <dc:Bounds x="142" y="10" width="600" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="201" y="109" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="174" y="145" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0bpxsbn_di" bpmnElement="SequenceFlow_0bpxsbn">
+        <di:waypoint xsi:type="dc:Point" x="237" y="127" />
+        <di:waypoint xsi:type="dc:Point" x="264" y="127" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="206" y="117" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1g7vu7y_di" bpmnElement="EndEvent_1g7vu7y">
+        <dc:Bounds x="396" y="109" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="369" y="145" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_17e7bv2_di" bpmnElement="SequenceFlow_17e7bv2">
+        <di:waypoint xsi:type="dc:Point" x="364" y="127" />
+        <di:waypoint xsi:type="dc:Point" x="396" y="127" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="335" y="117" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1wrcp9u_di" bpmnElement="UserTask_1wrcp9u">
+        <dc:Bounds x="264" y="87" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

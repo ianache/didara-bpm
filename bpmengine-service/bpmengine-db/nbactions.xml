@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Generate Flyway DB</actionName>
+            <displayName>Generate Flyway DB</displayName>
+            <goals>
+                <goal>compile</goal>
+                <goal>flyway:migrate</goal>
+            </goals>
+        </action>
+    </actions>

@@ -1,0 +1,3 @@
+com\bpm4sb\bpmengine\bl\ProcessService.class
+com\bpm4sb\bpmengine\bl\impl\ProcessServiceImpl.class
+com\bpm4sb\bpmengine\bl\ProcessSpecificationNotExistException.class
