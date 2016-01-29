@@ -27,7 +27,6 @@ public class ProcessServiceImpl implements ProcessService {
         em.getTransaction().begin();        
         em.persist(bp);        
         em.getTransaction().commit();
-        em.close();        
         PersistenceManager.INSTANCE.close();
         
         return bp.getId();
@@ -46,7 +45,6 @@ public class ProcessServiceImpl implements ProcessService {
         em.getTransaction().begin();
         em.persist(bpd);        
         em.getTransaction().commit();
-        em.close();
         
         PersistenceManager.INSTANCE.close();
                 

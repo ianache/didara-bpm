@@ -161,7 +161,7 @@
                                 <configuration>
                                     <tasks>
                                         <delete file="${project.build.outputDirectory}/META-INF/persistence.xml"/>
-                                        <copy file="src/main/resources/META-INF/persistence_mysql.xml"
+                                        <copy file="src/main/resources/persistence_oracle.xml"
                                             tofile="${project.build.outputDirectory}/META-INF/persistence.xml"/>
                                     </tasks>
                                 </configuration>
