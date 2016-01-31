@@ -15,8 +15,8 @@ public class DidaraBPMStandaloneInfrastructure implements DidaraBPMInfrastructur
     @Override
     public void startup() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        this.processService = new ProcessServiceImpl();
-        this.taskService = new TaskServiceImpl();
+        this.processService = new ProcessServiceImpl(this);
+        this.taskService = new TaskServiceImpl(this);
     }
 
     @Override
@@ -33,5 +33,4 @@ public class DidaraBPMStandaloneInfrastructure implements DidaraBPMInfrastructur
     public TaskService getTaskService() {
         return this.taskService;
     }
-    
 }

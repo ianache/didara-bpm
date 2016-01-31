@@ -1,6 +1,7 @@
 package com.bpm4sb.bpmengine.dao.model;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +10,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="BPM_PROCESSINST")
-public class BusinessProcess {
-    @Id @GeneratedValue String id;
+public class BusinessProcess implements Serializable {
+    @Id @Column(name = "ID") String id;
     private @Column(name = "PROCESSDEF_ID") String processDefId;
     private @Column(name = "CREATEDON") Date createdOn;
 

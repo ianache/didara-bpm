@@ -9,11 +9,11 @@ public interface ProcessService {
      * proceso.
      * 
      * @param processDefId
-     * @param startMessage
-     * @return
+     * @param inputData
+     * @param userName
      * @throws ProcessSpecificationNotExistException 
      */
-    public String start(String processDefId, String startMessage) throws ProcessSpecificationNotExistException;
+    public void start(String processDefId, String inputData, String userName) throws ProcessSpecificationNotExistException;
     
     /**
      * Esta operacion realiza la carga de la definicion de un proceso de negocio sobre el motor de procesos de
@@ -23,5 +23,17 @@ public interface ProcessService {
      * @return
      * @throws ProcessDefinitionNotValidExpception 
      */
-    public String loadProcessDefinition(String bpmnXmlDefinition) throws ProcessDefinitionNotValidExpception;
+    public String deployProcess(String bpmnXmlDefinition) throws ProcessDefinitionNotValidExpception;
+    
+    /**
+     * Se realiza la carga de todos los procesos que se encuentran registrados
+     * en la base de datos de <b>MDR</b>.
+     * 
+     * @return 
+     */
+    public String loadProcessesFromMdr();
+    
+    public void setInfrastructure(DidaraBPMInfrastructure infra);
+    public DidaraBPMInfrastructure getInfrastructure();
+    
 }
