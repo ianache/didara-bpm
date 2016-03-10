@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:annotation-config />
+    <context:property-placeholder location="classpath:database.properties" />
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${hibernate.driverClassName}" />
+        <property name="url" value="${hibernate.url}" />
+        <property name="username" value="${hibernate.username}" />
+        <property name="password" value="${hibernate.password}" />
+    </bean>
+    
+    <bean id="hibernateSessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!--property name="annotatedClasses">
+            <list>
+                <value>com.bpm4sb.process.domain.model.taskedefinition.TaskDefinition</value>
+                <value>com.bpm4sb.process.domain.model.taskedefinition.Participant</value>
+            </list>
+        </property-->
+        
+        <!-- Mapeo ORM -->
+        <property name="mappingResources">
+            <list>
+                <value>TaskDefinition.hbm.xml</value>
+                <value>Participant.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <!--jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/-->
+    
+    <!--bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <No: property name="dataSource" ref="dataSource"/>
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean-->
+    
+    <tx:annotation-driven transaction-manager="txManager"/>
+    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="hibernateSessionFactory" />
+    </bean>
+    
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <!-- the transactional semantics... -->
+        <tx:attributes>
+            <!-- all methods starting with 'get' are read-only -->
+            <tx:method name="query*" read-only="true"/>
+            <!-- other methods use the default transaction settings (see below) -->
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+    
+    <aop:config>
+        <aop:pointcut id="ProcessRepositoriesOperations" 
+            expression="execution(* com.bpm4sb.process.infrastructure.persistence.*Repository.*(..))"/>
+        <aop:pointcut id="CommonRepositoriesOperations" 
+            expression="execution(* com.bpm4sb.common.infrastructure.persistence.*Repository.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="ProcessRepositoriesOperations"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="CommonRepositoriesOperations"/>
+    </aop:config>
+    
+    <bean id="eventStore" class="com.bpm4sb.common.infrastructure.persistence.OracleDBEventStore" autowire="byName"/>
+    
+    <bean id="taskRepository" class="com.bpm4sb.process.infrastructure.persistence.HibernateTaskRepository" autowire="byName"/>
+    <bean id="taskDefinitionRepository" class="com.bpm4sb.process.infrastructure.persistence.HibernateTaskDefinitionRepository" autowire="byName"/>
+    <bean id="participantRepository" class="com.bpm4sb.process.infrastructure.persistence.HibernateParticipantRepository" autowire="byName"/>
+    
+    <bean id="identificationService" class="com.bpm4sb.process.domain.model.IdentificationService" autowire="byName"/>
+    <bean id="taskService" class="com.bpm4sb.process.domain.model.task.impl.TaskServiceImpl" autowire="byName"/>
+    <bean id="queryTaskService" class="com.bpm4sb.process.domain.model.task.impl.QueryTaskServiceImpl" autowire="byName"/>
+    <bean id="taskDefinitionService" class="com.bpm4sb.process.domain.model.taskedefinition.impl.TaskDefinitionServiceImpl" autowire="byName"/>
+    <bean id="participantService" class="com.bpm4sb.process.domain.model.participant.impl.ParticipantServiceImpl" autowire="byName"/>
+    
+    <bean id="domainRegistry" class="com.bpm4sb.process.domain.model.DomainRegistry" autowire="byName"/>        
+</beans>

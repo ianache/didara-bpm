@@ -1,0 +1,10 @@
+insert into TASKSTATE (ID, TITLE, ACTIONSALLOWED) values (1, 'Created', 'claim,setTaskCompletionDeadlineExpression,setTaskCompletionDurationExpression,setTaskStartDeadlineExpression,setTaskStartDurationExpression,skip,activate,nominate');
+insert into TASKSTATE (ID, TITLE, ACTIONSALLOWED) values (2, 'Ready', 'claim,delegate,forward,remove,resume,setTaskCompletionDeadlineExpression,setTaskCompletionDurationExpression,setTaskStartDeadlineExpression,setTaskStartDurationExpression,skip,start,suspend,suspendUntil');
+insert into TASKSTATE (ID, TITLE, ACTIONSALLOWED) values (3, 'Reserved', 'delegate,forward,initiateSubtask,release,resume,setTaskCompletionDeadlineExpression,setTaskCompletionDurationExpression,setTaskStartDeadlineExpression,setTaskStartDurationExpression,skip,start,suspend,suspendUntil');
+insert into TASKSTATE (ID, TITLE, ACTIONSALLOWED) values (4, 'InProgress', 'complete,delegate,deleteFault,deleteOutput,fail,forward,initiateSubtask,release,resume,setFault,setOutput,setTaskCompletionDeadlineExpression,setTaskCompletionDurationExpression,setTaskStartDeadlineExpression,setTaskStartDurationExpression,skip,stop,suspend,suspendUntil');
+insert into TASKSTATE (ID, TITLE, ACTIONSALLOWED) values (5, 'Suspended', 'resume');
+insert into TASKSTATE (ID, TITLE, ACTIONSALLOWED) values (6, 'Completed', '');
+insert into TASKSTATE (ID, TITLE, ACTIONSALLOWED) values (7, 'Failed', '');
+insert into TASKSTATE (ID, TITLE, ACTIONSALLOWED) values (8, 'Error', '');
+insert into TASKSTATE (ID, TITLE, ACTIONSALLOWED) values (9, 'Exited', '');
+insert into TASKSTATE (ID, TITLE, ACTIONSALLOWED) values (10, 'Obsolete', '');

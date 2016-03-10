@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all" package="com.bpm4sb.common.event">
+    <class name="StoredEvent" table="STOREDEVENT" lazy="true">
+        <id name="eventId" column="ID" type="long" unsaved-value="-1">
+            <generator class="sequence-identity" >
+                <param name="sequence">STOREDEVENT_ID_SEQ</param>
+            </generator>
+        </id>
+        <property name="eventBody" column="BODY" type="java.lang.String" />
+        <property name="occurredOn" column="OCCUREDON" type="java.util.Date" />
+        <property name="typeName" column="TYPENAME" type="java.lang.String" />
+    </class>
+</hibernate-mapping>
