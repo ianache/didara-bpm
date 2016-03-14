@@ -36,4 +36,10 @@ public interface ParticipantRepository {
      * @return 
      */
     Participant queryParticipantByName(String participantName);
+    /**
+     * Guarda el participante a partir de los cambios realizados a su estado
+     * 
+     * @param participant 
+     */
+    void save(Participant participant);
 }

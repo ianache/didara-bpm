@@ -4,7 +4,6 @@ import com.bpm4sb.common.domain.model.DomainEvent;
 import com.bpm4sb.common.event.EventSerializer;
 import com.bpm4sb.common.event.EventStore;
 import com.bpm4sb.common.event.StoredEvent;
-import com.bpm4sb.process.domain.model.IdentificationService;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -47,7 +46,7 @@ public class OracleDBEventStore implements EventStore {
 
     @Override
     public void close() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

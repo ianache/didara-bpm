@@ -1,6 +1,5 @@
 package com.bpm4sb.process.domain.model.taskedefinition;
 
-import com.bpm4sb.process.domain.model.participant.Participant;
 import java.util.List;
 
 /**
@@ -15,10 +14,12 @@ public interface TaskDefinitionRepository {
      * @param instanceName
      * @param description
      * @param participantId
+     * @param expExpression
+     * @param skipable
      * @return 
      */
     public String newTaskDefinition(String name, String instanceName, String description,
-        String participantId);
+        String participantId, String expExpression, Boolean skipable);
     
     /**
      * 
@@ -32,4 +33,11 @@ public interface TaskDefinitionRepository {
      * @return 
      */
     TaskDefinition queryTaskDefinitionById(String id);
+
+    /**
+     * 
+     * @param taskName
+     * @return 
+     */
+    TaskDefinition queryTaskDefinitionByName(String taskName);
 }

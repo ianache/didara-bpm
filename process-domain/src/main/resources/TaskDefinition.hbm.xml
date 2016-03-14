@@ -7,5 +7,8 @@
         <property name="title" column="TITLE" type="java.lang.String" />
         <property name="instanceTitle" column="INSTTITLE" type="java.lang.String" />
         <property name="participantId" column="PARTICIPANT_ID" type="java.lang.String" />
+        <property name="expirationExpression" column="EXPEXPRESSION" type="java.lang.String" />
+        <property name="skipable" type="java.lang.Boolean" column="SKIPABLE" />
+        <property name="priority" column="PRIORITY" type="java.lang.Integer" />
     </class>
 </hibernate-mapping>

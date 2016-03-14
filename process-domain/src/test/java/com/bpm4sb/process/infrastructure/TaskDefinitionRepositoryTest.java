@@ -28,7 +28,9 @@ public class TaskDefinitionRepositoryTest extends CommonTest {
             taskDefinitionRepository.newTaskDefinition("Aprove deliverable", 
                     "Aprove deliverable", 
                     "Aprove the deliverable", 
-                    "5269A9EA-48A1-44F1-BCBB-954AAB8BEE58");
+                    "5269A9EA-48A1-44F1-BCBB-954AAB8BEE58", // participant Id
+                    null,
+                    false);
         assertTrue(!"".equals(taskDefId));
     }
     

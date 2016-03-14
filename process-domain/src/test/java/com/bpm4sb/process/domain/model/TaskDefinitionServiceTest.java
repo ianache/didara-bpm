@@ -12,10 +12,15 @@ public class TaskDefinitionServiceTest extends CommonTest {
     @Autowired TaskDefinitionService taskDefinitionService;
        
     @Test public void testNewTaskDefinition() {
-        String taskDefId =
+        /*String taskDefId =
             taskDefinitionService.newTaskDefinition("Aprove deliverable", 
                     "Aprove deliverable", 
                     "Aprove the deliverable", 
+                    "Manager");*/
+        String taskDefId =
+            taskDefinitionService.newTaskDefinition("Aprobar Propuesta", 
+                    "Aprobar Propuesta", 
+                    "Aprobar la propuesta tecnica economica", 
                     "Manager");
         assertTrue(!"".equals(taskDefId));
     }    

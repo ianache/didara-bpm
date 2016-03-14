@@ -1,0 +1,2 @@
+-- definir grupos iniciales
+-- definit usuario administrador

@@ -1,0 +1,32 @@
+User Story: Instanciar una tarea de usuario
+	Permite realizar la creación de una instancia de la definicion de la tarea.
+	(a) Reglas de Negocio (RN)
+		* RN1 ("definicion activa"): la definicion de tarea debe estar activa
+		* RNG3
+User Story: Reclamar tarea
+	Permite reclamar una tarea para su ejecución por el usuario que ha reclamado la tarea.
+	(a) Reglas de Negocio (RN)
+		* RN1 ("ejecutor válido"): el usuario debe pertenecer al grupo de usuario o usuarios asignados al participante
+		* RNG1
+		* RNG2
+
+User Story: Re-asignar tarea
+	(a) Reglas de Negocio (RN)
+		RN1 ("re-asignador valido"): solo la puede realizar el dueño de la tarea (quien la crea) o quien tiene la tarea asignada.
+		* RNG1
+		* RNG2
+
+	(b) Pre-Condiciones (PRC):
+		PRC1 ("dueño de la especificación"): el usuario es dueño de la especificación
+		PRC2 ("responsable actual"): el usuario es el asignado a la tarea.
+	(c) Post-Condiciones (PSC):
+		PSC1 (""): la tarea ha sido asignada al nuevo asignado para ejecución ("asignee").
+
+
+
+
+Reglas de Negocio Globales (RNG):
+	RNG1 ("ejecutor válido"): el usuario debe pertenecer al grupo de usuario o usuarios asignados al participante
+	RNG2 ("estado válido"): la tarea debe estar en un estado permitido.
+	RNG3 ("iniciador válido"): quien instancia la tarea debe ser un dueño o proceso de la tarea (flujo de proceso o dueño)
+	

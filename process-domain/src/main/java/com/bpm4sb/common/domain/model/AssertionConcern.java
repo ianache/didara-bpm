@@ -1,14 +1,23 @@
 package com.bpm4sb.common.domain.model;
 
+import java.text.MessageFormat;
+
 /**
  * Copyright 2012,2013 Vaughn Vernon
  * 
  * @author Vaughn Vernon
+ * @author Ilver Anache
  */
 public class AssertionConcern {
 
     protected AssertionConcern() {
         super();
+    }
+    
+    public static void assertCondition(boolean result, String condType, String message) {
+        if (result) {
+            throw new IllegalStateException(MessageFormat.format("[ {0} ]:{1}", condType.toUpperCase(), message));
+        }
     }
 
     public static void assertArgumentEquals(Object anObject1, Object anObject2, String aMessage) {
@@ -91,9 +100,9 @@ public class AssertionConcern {
         }
     }
 
-    public static void assertStateTrue(boolean aBoolean, String aMessage) {
-        if (!aBoolean) {
-            throw new IllegalStateException(aMessage);
+    public static void assertState(boolean state, String message) {
+        if (!state) {
+            throw new IllegalStateException( message );
         }
     }
 }

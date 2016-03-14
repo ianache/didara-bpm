@@ -9,7 +9,7 @@
             </generator>
         </id>
         <property name="eventBody" column="BODY" type="java.lang.String" />
-        <property name="occurredOn" column="OCCUREDON" type="java.util.Date" />
+        <property name="occurredOn" column="OCCURREDON" type="java.util.Date" />
         <property name="typeName" column="TYPENAME" type="java.lang.String" />
     </class>
 </hibernate-mapping>

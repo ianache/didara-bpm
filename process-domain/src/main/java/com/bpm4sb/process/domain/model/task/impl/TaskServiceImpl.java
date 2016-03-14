@@ -1,20 +1,12 @@
 package com.bpm4sb.process.domain.model.task.impl;
 
-import com.bpm4sb.process.domain.model.task.AttachmentInfo;
-import com.bpm4sb.process.domain.model.task.Comment;
-import com.bpm4sb.process.domain.model.task.FaultData;
-import com.bpm4sb.process.domain.model.task.OrganizationalEntity;
-import com.bpm4sb.process.domain.model.task.TaskDetail;
-import com.bpm4sb.process.domain.model.task.TaskEvent;
-import com.bpm4sb.process.domain.model.task.TaskHistoryFilter;
-import com.bpm4sb.process.domain.model.task.TaskInstanceData;
+import com.bpm4sb.common.domain.model.AssertionConcern;
+import com.bpm4sb.process.domain.model.task.TaskInstance;
 import com.bpm4sb.process.domain.model.task.TaskService;
-import com.bpm4sb.process.domain.model.task.TimePeriod;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import static com.bpm4sb.common.domain.model.AssertionConcern.*;
 import com.bpm4sb.process.domain.model.task.TaskRepository;
+import com.bpm4sb.process.domain.model.taskedefinition.TaskDefinition;
+import com.bpm4sb.process.domain.model.taskedefinition.TaskDefinitionService;
+import java.text.MessageFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -22,22 +14,69 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author ianache
  */
 public class TaskServiceImpl implements TaskService {
-    @Autowired
-    private TaskRepository taskRepository;
+    @Autowired private TaskRepository taskRepository;
+    @Autowired private TaskDefinitionService taskDefinitionService;
             
-    @Override
-    public void activate(String taskId) {
-        assertArgumentNotEmpty(taskId, "Tarea no especificada");
-        //Task taskRepository.queryTaskById( taskId );
+    public String createTask(String taskName, String inputData, String userName) {
+        String taskId;
+        
+        TaskDefinition taskDef =
+            taskDefinitionService.queryTaskDefinitionByName(taskName);
+        AssertionConcern.assertState(taskDef != null, 
+                MessageFormat.format("La definicion de tarea es nulo", taskName));
+        
+        taskId = taskRepository.newTask(taskDef.getId(),
+                taskDef.getInstanceTitle(),
+                inputData,
+                taskDef.getExpirationExpression(),
+                userName,
+                taskDef.getPriority());
+        
+        return taskId;
     }
 
     @Override
-    public void nominate(String taskId, OrganizationalEntity orgEntity) {
+    public void activate(String taskId) {
+        AssertionConcern.assertArgumentNotNull(taskId, 
+                MessageFormat.format("Id de la tarea {0} no especificada", taskId));
+        
+        TaskInstance task = taskRepository.queryTaskById( taskId );
+        
+        AssertionConcern.assertState(task != null, 
+                MessageFormat.format("La tarea {0} no existe", taskId));
+        
+        TaskDefinition taskDef = 
+                taskDefinitionService.queryTaskDefinitionById(task.getTaskDefinition());
+        
+    }
+
+    @Override
+    public void newTask(String taskDefId, String owner, String inputData) {
+        AssertionConcern.assertArgumentNotNull(taskDefId, 
+                MessageFormat.format("Id de la definicion de la tarea {0} no especificada", taskDefId));        
+        
+        TaskDefinition taskDef = 
+                taskDefinitionService.queryTaskDefinitionById(taskDefId);
+        
+        AssertionConcern.assertState(taskDef != null, 
+                MessageFormat.format("Definición de tarea {0} no enocntrada", taskDefId));
+        
+        taskRepository.newTask(taskDefId, 
+                taskDef.getInstanceTitle(),
+                inputData,
+                taskDef.getExpirationExpression(),
+                owner,
+                taskDef.getPriority());
+    }    
+    
+/*
+    @Override
+    public void nominate(String taskId, Participant orgEntity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setGenericHumanRole(String taskId, String genericHumanRole, OrganizationalEntity orgEntity) {
+    public void setGenericHumanRole(String taskId, String genericHumanRole, Participant orgEntity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -62,7 +101,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void delegate(String taskId, OrganizationalEntity orgEntity) {
+    public void delegate(String taskId, Participant orgEntity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -92,22 +131,22 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void forward(String taskId, OrganizationalEntity orgEntity) {
+    public void forward(String taskId, Participant orgEntity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public AttachmentInfo getAttachment(String taskId, String attachmentId) {
+    public TaskAttachment getAttachment(String taskId, String attachmentId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<AttachmentInfo> getAttachmentInfos(String taskId) {
+    public List<TaskAttachment> getAttachmentInfos(String taskId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Comment> getComments(String taskId) {
+    public List<TaskComment> getComments(String taskId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -132,7 +171,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDetail getParentTask(String taskId) {
+    public TaskInstance getParentTask(String taskId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -157,7 +196,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDetail> getSubtasks(String taskId) {
+    public List<TaskInstance> getSubtasks(String taskId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -167,17 +206,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDetail getTaskDetails(String taskId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<TaskEvent> getTaskHistory(String taskId, TaskHistoryFilter filter, Integer startIndex, Integer maxTasks) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public TaskInstanceData getTaskInstanceData(String taskId) {
+    public TaskInstance getTaskDetails(String taskId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -272,7 +301,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void suspendUntil(String taskId, TimePeriod timePeriod, Date pointInTime) {
+    public void suspendUntil(String taskId, Date pointInTime) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -287,7 +316,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<OrganizationalEntity> getBusinessAdministrators(String taskId) {
+    public List<Participant> getBusinessAdministrators(String taskId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -312,17 +341,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<OrganizationalEntity> getExcludedOwners(String name) {
+    public List<Participant> getExcludedOwners(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public OrganizationalEntity getLogicalPeopleGroup(String nameLogicalPeopleGroup, HashMap<String, String> parameters) {
+    public Participant getLogicalPeopleGroup(String nameLogicalPeopleGroup, HashMap<String, String> parameters) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<OrganizationalEntity> getPotentialOwners(String taskName) {
+    public List<Participant> getPotentialOwners(String taskName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -347,8 +376,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<OrganizationalEntity> getTaskStakeholders(String taskId) {
+    public List<Participant> getTaskStakeholders(String taskId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }*/
+
 }

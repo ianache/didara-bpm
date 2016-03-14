@@ -14,11 +14,13 @@ public class StoredEvent {
     private Date occurredOn;
     private String typeName;
 
+    @SuppressWarnings(value="OverridableMethodCallDuringObjectConstruction")
     public StoredEvent() {
         super();
         this.setEventId(-1);
     }
 
+    @SuppressWarnings(value="OverridableMethodCallDuringObjectConstruction")
     public StoredEvent(String aTypeName, Date anOccurredOn, String anEventBody) {
         this();
         this.setEventBody(anEventBody);
@@ -26,6 +28,7 @@ public class StoredEvent {
         this.setTypeName(aTypeName);
     }
 
+    @SuppressWarnings(value="OverridableMethodCallDuringObjectConstruction")
     public StoredEvent(String aTypeName, Date anOccurredOn, String anEventBody, long anEventId) {
         this(aTypeName, anOccurredOn, anEventBody);
 
@@ -50,7 +53,7 @@ public class StoredEvent {
 
         try {
             domainEventClass = (Class<T>) Class.forName(this.typeName());
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
             throw new IllegalStateException(
                     "Class load error, because: "
                     + e.getMessage());

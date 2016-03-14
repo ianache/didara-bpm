@@ -14,6 +14,8 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/aop 
         http://www.springframework.org/schema/aop/spring-aop.xsd">
+    
+    <aop:aspectj-autoproxy/>
 
     <context:annotation-config />
     <context:property-placeholder location="classpath:database.properties" />
@@ -41,12 +43,16 @@
             <list>
                 <value>TaskDefinition.hbm.xml</value>
                 <value>Participant.hbm.xml</value>
+                <value>StoredEvent.hbm.xml</value>
+                <value>OrganizationalEntity.hbm.xml</value>
+                <value>TaskInstance.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.jdbc.use_get_generated_keys">true</prop>
             </props>
         </property>
     </bean>
@@ -82,17 +88,42 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="CommonRepositoriesOperations"/>
     </aop:config>
     
-    <bean id="eventStore" class="com.bpm4sb.common.infrastructure.persistence.OracleDBEventStore" autowire="byName"/>
+    <bean id="globalDomainEventProcess" 
+          class="com.bpm4sb.process.application.GlobalDomainEventProcessor"/>
     
-    <bean id="taskRepository" class="com.bpm4sb.process.infrastructure.persistence.HibernateTaskRepository" autowire="byName"/>
-    <bean id="taskDefinitionRepository" class="com.bpm4sb.process.infrastructure.persistence.HibernateTaskDefinitionRepository" autowire="byName"/>
-    <bean id="participantRepository" class="com.bpm4sb.process.infrastructure.persistence.HibernateParticipantRepository" autowire="byName"/>
+    <bean id="eventStore" 
+          class="com.bpm4sb.common.infrastructure.persistence.OracleDBEventStore" 
+          autowire="byName"/>    
+    <bean id="taskRepository" 
+          class="com.bpm4sb.process.infrastructure.persistence.HibernateTaskRepository" 
+          autowire="byName"/>
+    <bean id="taskDefinitionRepository" 
+          class="com.bpm4sb.process.infrastructure.persistence.HibernateTaskDefinitionRepository" 
+          autowire="byName"/>
+    <bean id="participantRepository" 
+          class="com.bpm4sb.process.infrastructure.persistence.HibernateParticipantRepository" 
+          autowire="byName"/>
     
-    <bean id="identificationService" class="com.bpm4sb.process.domain.model.IdentificationService" autowire="byName"/>
-    <bean id="taskService" class="com.bpm4sb.process.domain.model.task.impl.TaskServiceImpl" autowire="byName"/>
-    <bean id="queryTaskService" class="com.bpm4sb.process.domain.model.task.impl.QueryTaskServiceImpl" autowire="byName"/>
-    <bean id="taskDefinitionService" class="com.bpm4sb.process.domain.model.taskedefinition.impl.TaskDefinitionServiceImpl" autowire="byName"/>
-    <bean id="participantService" class="com.bpm4sb.process.domain.model.participant.impl.ParticipantServiceImpl" autowire="byName"/>
+    <bean id="identificationService" 
+          class="com.bpm4sb.process.domain.model.IdentificationService" 
+          autowire="byName"/>
+    <bean id="taskService" 
+          class="com.bpm4sb.process.domain.model.task.impl.TaskServiceImpl" 
+          autowire="byName"/>
+    <bean id="queryTaskService" 
+          class="com.bpm4sb.process.domain.model.task.impl.QueryTaskServiceImpl" 
+          autowire="byName"/>
+    <bean id="taskDefinitionService" 
+          class="com.bpm4sb.process.domain.model.taskedefinition.impl.TaskDefinitionServiceImpl" 
+          autowire="byName"/>
+    <bean id="participantService" 
+          class="com.bpm4sb.process.domain.model.participant.impl.ParticipantServiceImpl" 
+          autowire="byName"/>
+    <bean id="taskApplicationService" 
+          class="com.bpm4sb.process.application.impl.TaskApplicationServiceImpl" 
+          autowire="byName"/>
     
-    <bean id="domainRegistry" class="com.bpm4sb.process.domain.model.DomainRegistry" autowire="byName"/>        
+    <bean id="domainRegistry" 
+          class="com.bpm4sb.process.domain.model.DomainRegistry" 
+          autowire="byName"/>        
 </beans>

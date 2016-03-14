@@ -20,6 +20,12 @@ public class DomainEventPublisher {
     private List subscribers;
     private boolean publishing;
 
+    private DomainEventPublisher() {
+        super();
+        this.setPublishing(false);
+        this.ensureSubscribersList();
+    }
+        
     public boolean isPublishing() {
         return publishing;
     }
@@ -66,12 +72,6 @@ public class DomainEventPublisher {
         this.subscribers = subscribers;
     }
     
-    private DomainEventPublisher() {
-        super();
-        this.setPublishing(false);
-        this.ensureSubscribersList();
-    }
-    
     @SuppressWarnings("rawtypes")
     private void ensureSubscribersList() {
         if (!this.hasSubscribers()) {
@@ -82,5 +82,13 @@ public class DomainEventPublisher {
     @SuppressWarnings("rawtypes")
     private List subscribers() {
         return this.subscribers;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public <T> void subscribe(DomainEventSubscriber<T> aSubscriber) {
+        if (!this.isPublishing()) {
+            this.ensureSubscribersList();
+            this.subscribers().add(aSubscriber);
+        }
     }
 }

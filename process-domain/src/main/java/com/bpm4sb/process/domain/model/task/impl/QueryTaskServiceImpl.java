@@ -1,10 +1,10 @@
 package com.bpm4sb.process.domain.model.task.impl;
 
 import com.bpm4sb.process.domain.model.task.QueryTaskService;
-import com.bpm4sb.process.domain.model.task.TaskAbstract;
-import com.bpm4sb.process.domain.model.task.TaskDetail;
-import com.bpm4sb.process.domain.model.task.TaskQueryResultSet;
-import com.bpm4sb.process.domain.model.task.TaskTypeEnum;
+import com.bpm4sb.process.domain.model.task.dto.TaskAbstract;
+import com.bpm4sb.process.domain.model.task.dto.TaskDetail;
+import com.bpm4sb.process.domain.model.task.dto.TaskQueryResultSet;
+import com.bpm4sb.process.domain.model.task.dto.TaskTypeEnum;
 import java.util.List;
 import java.util.Set;
 

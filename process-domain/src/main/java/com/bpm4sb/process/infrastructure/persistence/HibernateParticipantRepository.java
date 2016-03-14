@@ -4,57 +4,55 @@ import com.bpm4sb.process.domain.model.IdentificationService;
 import com.bpm4sb.process.domain.model.participant.Participant;
 import java.util.List;
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.transaction.annotation.Transactional;
 import static com.bpm4sb.common.domain.model.AssertionConcern.*;
 import com.bpm4sb.process.domain.model.participant.ParticipantRepository;
+import java.text.MessageFormat;
 
 /**
  *
- * @author USUARIO
+ * @author ianache
  */
-@Transactional
-public class HibernateParticipantRepository implements ParticipantRepository {
+public class HibernateParticipantRepository extends HibernateBaseRepository 
+        implements ParticipantRepository {
 
-    @Autowired private HibernateTransactionManager txManager;
     @Autowired private IdentificationService identificationService;
 
     @Override
     public Participant queryParticipantById(String id) {
-        Query q = getSession().createQuery("select p from Participant p where p.id=:_id");
+        Query q = session().createQuery("select p from Participant p where p.id=:_id");
         q.setParameter("_id", id);
         List<Participant> participants = q.list();
-        assertStateTrue(participants.size() == 1, "No se ha encontrado el participante");
+        assertState(participants.size() == 1, MessageFormat.format("No se ha encontrado el participante {0}",id));
         return participants.get(0);
     }
 
     @Override
     public List<Participant> queryAllParticipant() {
-        return getSession()
+        return session()
                 .createQuery("select p from Participant p order by p.name asc")
                 .list();        
     }
 
     @Override
     public String newParticipant(String name, String description) {
-        Participant participant
-                = new Participant(identificationService.getUniqueId(), name, description);
-        getSession().persist(participant);
+        Participant participant = queryParticipantByName(name);
+        assertState(participant == null, MessageFormat.format("El participante {0} ya existe", name));
+        participant = new Participant(identificationService.getUniqueId(), name, description);
+        session().persist(participant);
         return participant.getId();
     }
 
     @Override
     public Participant queryParticipantByName(String participantName) {
-        Query q = getSession().createQuery("select p from Participant p where p.name=:_name");
+        Query q = session().createQuery("select p from Participant p where p.name=:_name");
         q.setParameter("_name", participantName);
         List<Participant> participants = q.list();
-        assertStateTrue(participants.size() == 1, "No se ha encontrado el participante");
-        return participants.get(0);
+        return (participants.size() == 1) ? participants.get(0) : (null);
     }
 
-    private Session getSession() {
-        return txManager.getSessionFactory().getCurrentSession();
+    @Override
+    public void save(Participant participant) {
+        session().update(participant);
     }
 }

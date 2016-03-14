@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field" default-cascade="all" 
+    package="com.bpm4sb.process.domain.model.task">
+    <class name="TaskInstance" table="TASKINSTANCE" lazy="true">
+        <id name="id" type="java.lang.String" column="ID"/>
+        <property name="title" column="TITLE" type="java.lang.String" />
+        <property name="taskDefinition" column="TASKDEFINITION_ID" type="java.lang.String" />
+        <property name="outcome" column="OUTCOME" type="java.lang.String" />
+        <property name="dataObject" column="DATAOBJECT" type="java.lang.String" />
+        <property name="expirationDate" column="EXPIRATIONDATE" type="java.util.Date"/>
+        <property name="assignee" column="ASSIGNEE_ID" type="java.lang.String" />
+        <property name="owner" column="OWNER_ID" type="java.lang.String" />
+        <property name="priority" column="PRIORITY" type="java.lang.Integer" />
+    </class>
+</hibernate-mapping>

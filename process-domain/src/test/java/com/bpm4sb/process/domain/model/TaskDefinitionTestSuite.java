@@ -9,8 +9,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    ParticipantServiceTest.class,
-    TaskDefinitionServiceTest.class
+    ParticipantServiceTest.class
+    //TaskDefinitionServiceTest.class
     })
 public class TaskDefinitionTestSuite {
 }

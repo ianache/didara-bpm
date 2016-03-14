@@ -16,12 +16,13 @@ public interface TaskDefinitionService {
      * @return 
      */
     String newTaskDefinition(String name, String instanceName, String description, String participantName);
-    
+
     /**
      * 
-     * @param name
-     * @param description
+     * @param taskName
      * @return 
      */
-    String newParticipant(String name, String description);
+    TaskDefinition queryTaskDefinitionByName(String taskName);
+
+    public TaskDefinition queryTaskDefinitionById(String taskDefinition);
 }

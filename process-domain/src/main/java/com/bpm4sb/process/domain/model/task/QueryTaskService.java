@@ -1,5 +1,9 @@
 package com.bpm4sb.process.domain.model.task;
 
+import com.bpm4sb.process.domain.model.task.dto.TaskDetail;
+import com.bpm4sb.process.domain.model.task.dto.TaskTypeEnum;
+import com.bpm4sb.process.domain.model.task.dto.TaskQueryResultSet;
+import com.bpm4sb.process.domain.model.task.dto.TaskAbstract;
 import java.util.List;
 import java.util.Set;
 

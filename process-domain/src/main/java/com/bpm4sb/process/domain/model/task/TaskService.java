@@ -1,9 +1,5 @@
 package com.bpm4sb.process.domain.model.task;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
 /**
  *
  * @author ianache
@@ -15,12 +11,19 @@ public interface TaskService {
      * @param taskId 
      */
     void activate(String taskId);
+
+    /**
+     * 
+     * @param taskDefId
+     * @param owner 
+     */
+    public void newTask(String taskDefId, String inputData, String owner);
     /**
      * Nominate an organization entity to process the task.
      * @param taskId 
      * @param orgEntity 
      */
-    void nominate(String taskId, OrganizationalEntity orgEntity);
+    //void nominate(String taskId, Participant orgEntity);
     /**
      * Replace the organizational assignment to the task in one generic human role.
      * 
@@ -28,8 +31,8 @@ public interface TaskService {
      * @param genericHumanRole
      * @param orgEntity 
      */
-    void setGenericHumanRole(String taskId, String genericHumanRole, 
-            OrganizationalEntity orgEntity);
+    //void setGenericHumanRole(String taskId, String genericHumanRole, 
+    //        Participant orgEntity);
     /**
      * Add attachment to a task. Returns an identifier for the attachment.
      * 
@@ -40,8 +43,8 @@ public interface TaskService {
      * @param data
      * @return 
      */
-    String addAttachment(String taskId, String attachmentName, String accessType,
-            String contentType, Object data);
+    //String addAttachment(String taskId, String attachmentName, String accessType,
+    //        String contentType, Object data);
     /**
      * Add a comment to a task. Returns an identifier that can be used to later 
      * update or delete the comment.
@@ -50,20 +53,20 @@ public interface TaskService {
      * @param comment 
      * @return  
      */
-    String addComment(String taskId, String comment);
+    //String addComment(String taskId, String comment);
     /**
      * Claim responsibility for a task, i.e. set the task to status Reserved.
      * 
      * @param taskId 
      */
-    void claim(String taskId);
+    //void claim(String taskId);
     /**
      * Execution of the task finished successfully.
      * 
      * @param taskId
      * @param outputData 
      */
-    void complete(String taskId, String outputData);
+    //void complete(String taskId, String outputData);
     /**
      * Assign the task to one user and set the task to state Reserved. 
      * If the recipient was not a potential owner then this person MUST be 
@@ -72,40 +75,40 @@ public interface TaskService {
      * @param taskId
      * @param orgEntity 
      */
-    void delegate(String taskId, OrganizationalEntity orgEntity);
+    //void delegate(String taskId, Participant orgEntity);
     /**
      * Delete the attachment with the specified identifier from the task.
      * 
      * @param taskId
      * @param attachmentId 
      */
-    void deleteAttachment(String taskId, String attachmentId);
+    //void deleteAttachment(String taskId, String attachmentId);
     /**
      * Deletes the identified comment.
      * 
      * @param taskId
      * @param commentId 
      */
-    void deleteComment(String taskId, String commentId);
+    //void deleteComment(String taskId, String commentId);
     /**
      * Deletes the fault name and fault data of the task.
      * 
      * @param taskId 
      */
-    void deleteFault(String taskId);
+    //void deleteFault(String taskId);
     /**
      * Deletes the output data of the task.
      * 
      * @param taskId 
      */
-    void deleteOutput(String taskId);
+    //void deleteOutput(String taskId);
     /**
      * Execution of the task fails and a fault is returned.
      * 
      * @param taskId
      * @param faultData 
      */
-    void fail(String taskId, FaultData faultData);
+    //void fail(String taskId, FaultData faultData);
     /**
      * Forward the task to another organization entity. Potential owners MAY 
      * forward a task while the task is in the Ready state.
@@ -113,7 +116,7 @@ public interface TaskService {
      * @param taskId
      * @param orgEntity 
      */
-    void forward(String taskId, OrganizationalEntity orgEntity);
+    //void forward(String taskId, Participant orgEntity);
     /**
      * Get the task attachment with the given identifier.
      * 
@@ -121,28 +124,28 @@ public interface TaskService {
      * @param attachmentId
      * @return 
      */
-    AttachmentInfo getAttachment(String taskId, String attachmentId);
+    //TaskAttachment getAttachment(String taskId, String attachmentId);
     /**
      * Get attachment information for all attachments associated with the task.
      * 
      * @param taskId
      * @return 
      */
-    List<AttachmentInfo> getAttachmentInfos(String taskId);
+    //List<TaskAttachment> getAttachmentInfos(String taskId);
     /**
      * Get all comments of a task.
      * 
      * @param taskId
      * @return 
      */
-    List<Comment> getComments(String taskId);
+    //List<TaskComment> getComments(String taskId);
     /**
      * Get the fault data of the task.
      * 
      * @param taskId
      * @return 
      */
-    FaultData getFault(String taskId);
+    //FaultData getFault(String taskId);
     /**
      * Get the data for the part of the task's input message.
      * 
@@ -150,14 +153,14 @@ public interface TaskService {
      * @param partName
      * @return 
      */
-    Object getInput(String taskId, String partName);
+    //Object getInput(String taskId, String partName);
     /**
      * Get the outcome of the task.
      * 
      * @param taskId
      * @return 
      */
-    String getOutcome(String taskId);
+    //String getOutcome(String taskId);
     /**
      * Get the data for the part of the task's output message.
      * 
@@ -165,21 +168,21 @@ public interface TaskService {
      * @param partName
      * @return 
      */
-    Object getOutput(String taskId, String partName);
+    //Object getOutput(String taskId, String partName);
     /**
      * Returns the superior composite task of a sub task.
      * 
      * @param taskId
      * @return 
      */
-    TaskDetail getParentTask(String taskId);
+    //TaskInstance getParentTask(String taskId);
     /**
      * Returns the task identifier of the superior composite task of a sub task.
      * 
      * @param taskId
      * @return 
      */
-    String getParentTaskIdentifier(String taskId);
+    //String getParentTaskIdentifier(String taskId);
     /**
      * Returns the rendering specified by the type parameter. 
      * 
@@ -187,7 +190,7 @@ public interface TaskService {
      * @param rendingType
      * @return 
      */
-    Object getRendering(String taskId, String rendingType);
+    //Object getRendering(String taskId, String rendingType);
     /**
      * Applies to both tasks and notifications. Returns the rendering types 
      * available for the task or notification.
@@ -195,20 +198,40 @@ public interface TaskService {
      * @param taskId
      * @return 
      */
-    List<String> getRenderingTypes(String taskId);
+    //List<String> getRenderingTypes(String taskId);
     /**
      * Returns the identifiers of all already created sub tasks of a task
      * 
      * @param taskId
      * @return 
      */
-    List<String> getSubtaskIdentifiers(String taskId);
-    List<TaskDetail> getSubtasks(String taskId);
-    String getTaskDescription(String taskId/*, contentType*/);
-    TaskDetail getTaskDetails(String taskId);
-    List<TaskEvent> getTaskHistory(String taskId, TaskHistoryFilter filter,
-            Integer startIndex, Integer maxTasks/*, includeData*/);
-    TaskInstanceData getTaskInstanceData(String taskId);
+    //List<String> getSubtaskIdentifiers(String taskId);
+    
+    /**
+     * 
+     * @param taskId
+     * @return 
+     */
+    //List<TaskInstance> getSubtasks(String taskId);
+    
+    /**
+     * 
+     * @param taskId
+     * @return 
+     */
+    //String getTaskDescription(String taskId/*, contentType*/);
+    
+    /**
+     * 
+     * @param taskId
+     * @return 
+     */
+    //TaskInstance getTaskDetails(String taskId);
+    
+    //List<TaskEvent> getTaskHistory(String taskId, TaskHistoryFilter filter,
+    //        Integer startIndex, Integer maxTasks/*, includeData*/);
+    
+    //TaskInstanceData getTaskInstanceData(String taskId);
     /**
      * Returns list of operations that are available to the authorized user 
      * given the user's role and the state of the task.
@@ -216,32 +239,138 @@ public interface TaskService {
      * @param taskId
      * @return 
      */
-    List<String> getTaskOperations(String taskId);
-    Boolean hasSubtasks(String taskId);
-    String instantiateSubTask(String taskId, String taskName);
-    Boolean isSubtask(String taskId);
-    void release(String taskId);
-    void remove(String taskId);
-    void resume(String taskId);
-    void setFault(String taskId, String faultName, String faultData);
-    void setOutput(String taskId, String partName, String outputData);
-    void setPriority(String taskId, Integer priority);
-    void setTaskCompletionDeadlineExpression(String taskId, String deadLineName, 
-            String durationExpression);
-    void setTaskCompletionDurationExpression(String taskId, String deadLineName, 
-            String durationExpression);
-    void setTaskStartDeadlineExpression(String taskId, String deadLineName, 
-            String durationExpression);
-    void setTaskStartDurationExpression(String taskId, String deadLineName, 
-            String durationExpression);
-    void skip(String taskId);
-    void start(String taskId);
-    void stop(String taskId);
-    void suspend(String taskId);
-    void suspendUntil(String taskId, TimePeriod timePeriod, Date pointInTime);
-    void updateComment(String taskId, String commentId, String newComment);
-    String getActualOwner(String taskId);
-    List<OrganizationalEntity> getBusinessAdministrators(String taskId);
+    //List<String> getTaskOperations(String taskId);
+    /**
+     * 
+     * @param taskId
+     * @return 
+     */
+    //Boolean hasSubtasks(String taskId);
+    /**
+     * 
+     * @param taskId
+     * @param taskName
+     * @return 
+     */
+    //String instantiateSubTask(String taskId, String taskName);
+    /**
+     * 
+     * @param taskId
+     * @return 
+     */
+    //Boolean isSubtask(String taskId);
+    /**
+     * 
+     * @param taskId 
+     */
+    //void release(String taskId);
+    /**
+     * 
+     * @param taskId 
+     */
+    //void remove(String taskId);
+    /**
+     * 
+     * @param taskId 
+     */
+    //void resume(String taskId);
+    /**
+     * 
+     * @param taskId
+     * @param faultName
+     * @param faultData 
+     */
+    //void setFault(String taskId, String faultName, String faultData);
+    /**
+     * 
+     * @param taskId
+     * @param partName
+     * @param outputData 
+     */
+    //void setOutput(String taskId, String partName, String outputData);
+    /**
+     * 
+     * @param taskId
+     * @param priority 
+     */
+    //void setPriority(String taskId, Integer priority);
+    /**
+     * 
+     * @param taskId
+     * @param deadLineName
+     * @param durationExpression 
+     */
+    //void setTaskCompletionDeadlineExpression(String taskId, String deadLineName, 
+    //        String durationExpression);
+    /**
+     * 
+     * @param taskId
+     * @param deadLineName
+     * @param durationExpression 
+     */
+    //void setTaskCompletionDurationExpression(String taskId, String deadLineName, 
+    //        String durationExpression);
+    /**
+     * 
+     * @param taskId
+     * @param deadLineName
+     * @param durationExpression 
+     */
+    //void setTaskStartDeadlineExpression(String taskId, String deadLineName, 
+    //        String durationExpression);
+    /**
+     * 
+     * @param taskId
+     * @param deadLineName
+     * @param durationExpression 
+     */
+    //void setTaskStartDurationExpression(String taskId, String deadLineName, 
+    //        String durationExpression);
+    /**
+     * 
+     * @param taskId 
+     */
+    //void skip(String taskId);
+    /**
+     * 
+     * @param taskId 
+     */
+    //void start(String taskId);
+    /**
+     * 
+     * @param taskId 
+     */
+    //void stop(String taskId);
+    /**
+     * 
+     * @param taskId 
+     */
+    //void suspend(String taskId);
+    /**
+     * 
+     * @param taskId
+     * @param pointInTime
+     */
+    //void suspendUntil(String taskId, Date pointInTime) ;
+    /**
+     * 
+     * @param taskId
+     * @param commentId
+     * @param newComment 
+     */
+    //void updateComment(String taskId, String commentId, String newComment);
+    /**
+     * 
+     * @param taskId
+     * @return 
+     */
+    //String getActualOwner(String taskId);
+    /**
+     * 
+     * @param taskId
+     * @return 
+     */
+    //List<Participant> getBusinessAdministrators(String taskId);
     /**
      * Returns the number of finished sub tasks of a task If the task name is 
      * not present the current task MUST be considered.
@@ -249,7 +378,7 @@ public interface TaskService {
      * @param taskId
      * @return 
      */
-    Integer getCountOfFinishedSubTasks(String taskId);
+    //Integer getCountOfFinishedSubTasks(String taskId);
     /**
      * Returns the number of sub tasks of a task If the task name is not present 
      * the current task MUST be considered.
@@ -257,7 +386,7 @@ public interface TaskService {
      * @param taskId
      * @return 
      */
-    Integer getCountOfSubTasks(String taskId);
+    //Integer getCountOfSubTasks(String taskId);
     /**
      * Returns the number of a task subtasks that are in the specified state. 
      * If the task name is not present the current task MUST be considered.
@@ -266,7 +395,7 @@ public interface TaskService {
      * @param taskName
      * @return 
      */
-    Integer getCountOfSubTasksInState(String state, String taskName);
+    //Integer getCountOfSubTasksInState(String state, String taskName);
     /**
      * Returns the number of a task sub tasks that match the given outcome. 
      * If the task name is not present the current task  MUST be considered.
@@ -274,7 +403,7 @@ public interface TaskService {
      * @param taskName
      * @return 
      */
-    Integer getCountOfSubTasksWithOutcome(String outcome, String taskName);
+    //Integer getCountOfSubTasksWithOutcome(String outcome, String taskName);
     /**
      * Returns the excluded owners. If the task name is not present the 
      * current task MUST be considered.
@@ -282,7 +411,7 @@ public interface TaskService {
      * @param name
      * @return 
      */
-    List<OrganizationalEntity> getExcludedOwners(String name);
+    //List<Participant> getExcludedOwners(String name);
 
     /**
      * Returns the value of a logical people group. If the task name is not 
@@ -292,15 +421,15 @@ public interface TaskService {
      * @param parameters
      * @return 
      */
-    OrganizationalEntity getLogicalPeopleGroup(String nameLogicalPeopleGroup, 
-            HashMap<String, String> parameters);
+    //Participant getLogicalPeopleGroup(String nameLogicalPeopleGroup, 
+    //        HashMap<String, String> parameters);
     /**
      * Returns the potential owners of the task.
      * 
      * @param taskName
      * @return 
      */
-    List<OrganizationalEntity> getPotentialOwners(String taskName);
+    //List<Participant> getPotentialOwners(String taskName);
     /**
      * Returns a node-set representing the specified part or contained elements 
      * of a sub task‟s output message. Only completed sub tasks of the current 
@@ -309,7 +438,7 @@ public interface TaskService {
      * @param subTaskName
      * @return 
      */
-    HashMap<String, String> getSubtaskOutput(String subTaskName/*, String partName, String locationPath*/);
+    //HashMap<String, String> getSubtaskOutput(String subTaskName/*, String partName, String locationPath*/);
     /**
      * Returns a node-set of simpletyped or complex-typed elements, 
      * constructed from the sub tasks‟ output documents in a routing pattern. 
@@ -317,7 +446,7 @@ public interface TaskService {
      * @param partName
      * @return 
      */
-    HashMap<String, String> getSubtaskOutputs(String partName/*, String locationPath*/);
+    //HashMap<String, String> getSubtaskOutputs(String partName/*, String locationPath*/);
     /**
      * Returns the initiator of the task. If the task name is not present the 
      * current task MUST be considered.
@@ -325,14 +454,14 @@ public interface TaskService {
      * @param taskName
      * @return 
      */
-    String getTaskInitiator(String taskName);
+    //String getTaskInitiator(String taskName);
     /**
      * Returns the priority of the task.
      * 
      * @param taskName
      * @return 
      */
-    Integer getTaskPriority(String taskName);
+    //Integer getTaskPriority(String taskName);
     /**
      * Returns the stakeholders of the task. If the task name is not present 
      * the current task MUST be considered.
@@ -340,5 +469,6 @@ public interface TaskService {
      * @param taskId
      * @return 
      */
-    List<OrganizationalEntity> getTaskStakeholders(String taskId);
+    //List<Participant> getTaskStakeholders(String taskId);
+    
 }

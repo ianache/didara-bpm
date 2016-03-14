@@ -5,7 +5,9 @@ import com.bpm4sb.process.domain.model.taskedefinition.TaskDefinitionRepository;
 import com.bpm4sb.process.domain.model.taskedefinition.TaskDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import static com.bpm4sb.common.domain.model.AssertionConcern.*;
-import com.bpm4sb.process.domain.model.participant.ParticipantRepository;
+import com.bpm4sb.process.domain.model.participant.ParticipantService;
+import com.bpm4sb.process.domain.model.taskedefinition.TaskDefinition;
+import java.text.MessageFormat;
 
 /**
  *
@@ -13,7 +15,7 @@ import com.bpm4sb.process.domain.model.participant.ParticipantRepository;
  */
 public class TaskDefinitionServiceImpl implements TaskDefinitionService {
     @Autowired TaskDefinitionRepository taskDefinitionRepository;
-    @Autowired ParticipantRepository participantRepository;
+    @Autowired ParticipantService participantService;
 
     public TaskDefinitionServiceImpl() {
         super();
@@ -24,22 +26,27 @@ public class TaskDefinitionServiceImpl implements TaskDefinitionService {
         String participantName) {
         
         Participant participant = 
-                participantRepository.queryParticipantByName(participantName);
-        assertStateTrue(participant != null, "No existe el participante");
+                participantService.queryParticipantByName(participantName);
+        assertState(participant != null, 
+                MessageFormat.format("No existe el participante {0}", participantName));
         
         String taskDefId =
             taskDefinitionRepository.newTaskDefinition(name, 
                     instanceName, 
                     description,
-                    participant.getId());
+                    participant.getId(),
+                    "1D",
+                    false);
         return taskDefId;
     }
 
     @Override
-    public String newParticipant(String name, String description) {
-        Participant participant = 
-                participantRepository.queryParticipantByName(name);
-        assertStateTrue(participant != null, "El participante ya existe");
-        return participantRepository.newParticipant(name, description);
+    public TaskDefinition queryTaskDefinitionByName(String taskName) {
+        return taskDefinitionRepository.queryTaskDefinitionByName(taskName);
+    }
+
+    @Override
+    public TaskDefinition queryTaskDefinitionById(String taskDefId) {
+        return taskDefinitionRepository.queryTaskDefinitionById(taskDefId);
     }
 }

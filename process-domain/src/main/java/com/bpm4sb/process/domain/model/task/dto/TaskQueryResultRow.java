@@ -1,4 +1,4 @@
-package com.bpm4sb.process.domain.model.task;
+package com.bpm4sb.process.domain.model.task.dto;
 
 import java.util.Date;
 
