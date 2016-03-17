@@ -1,6 +1,5 @@
 create table ORGENTITY (
-    ID VARCHAR(36) NOT NULL,
-    SNAME VARCHAR(60) NOT NULL
+    ID VARCHAR(36) NOT NULL
 );
 alter table ORGENTITY 
     add constraint ORGENTITY_PK1
@@ -8,10 +7,11 @@ alter table ORGENTITY
 
 create table USERENTITY (
     ID VARCHAR(36) NOT NULL,
+    LOGIN VARCHAR(60) NOT NULL,
     FULLNAME VARCHAR(120) NOT NULL,
     EMAIL VARCHAR(120) NULL,
-    PASSWORD VARCHAR(60) NOT NULL,
-    LOCKED INT NOT NULL
+    PASSWORD VARCHAR(60) NULL,
+    ACTIVE INT NOT NULL
 );
 alter table USERENTITY
     add constraint USERENTITY_PK1
@@ -20,9 +20,16 @@ alter table USERENTITY
     add constraint USERENTITY_FK1
     foreign key (ID)
     references ORGENTITY(ID);
+alter table USERENTITY
+    add constraint USERENTITY_UK1
+    unique (LOGIN);
+alter table USERENTITY
+    add constraint USERENTITY_UK2
+    unique (EMAIL);
 
 create table GROUPENTITY (
     ID VARCHAR(36) NOT NULL,
+    SNAME VARCHAR(60) NOT NULL,
     DESCRIPTION VARCHAR(200) NULL,
     PARENT_ID VARCHAR(36) NULL
 );
@@ -37,6 +44,9 @@ alter table GROUPENTITY
     add constraint GROUPENTITY_FK2
     foreign key (PARENT_ID)
     references GROUPENTITY(ID);
+alter table GROUPENTITY
+    add constraint GROUPENTITY_UK1
+    unique (SNAME);
 
 create table ORGENTITYMEMBERSHIP (
     GROUP_ID VARCHAR(36) NOT NULL,

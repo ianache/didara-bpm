@@ -6,15 +6,13 @@ package com.bpm4sb.identity.domain.model;
  */
 public class IdentityEntity {
     private String id;
-    private String name;
 
     public IdentityEntity() {
         super();
     }
 
-    public IdentityEntity(String id, String name) {
+    public IdentityEntity(String id) {
         this.id = id;
-        this.name = name;
     }
     
 
@@ -25,12 +23,4 @@ public class IdentityEntity {
     public void setId(String id) {
         this.id = id;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }        
 }

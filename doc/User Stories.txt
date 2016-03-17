@@ -3,6 +3,7 @@ User Story: Instanciar una tarea de usuario
 	(a) Reglas de Negocio (RN)
 		* RN1 ("definicion activa"): la definicion de tarea debe estar activa
 		* RNG3
+
 User Story: Reclamar tarea
 	Permite reclamar una tarea para su ejecución por el usuario que ha reclamado la tarea.
 	(a) Reglas de Negocio (RN)

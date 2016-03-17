@@ -5,33 +5,33 @@ package com.bpm4sb.identity.domain.model;
  * @author ianache
  */
 public class Membership {
-    private String userId;
-    private String groupId;
+    private User user;
+    private Group group;
     private Boolean active;
 
     public Membership() {
     }
 
-    public Membership(String userId, String groupId, Boolean active) {
-        this.userId = userId;
-        this.groupId = groupId;
+    public Membership(User user, Group group, Boolean active) {
+        this.user = user;
+        this.group = group;
         this.active = active;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getGroupId() {
-        return groupId;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public Boolean isActive() {

@@ -46,6 +46,7 @@
                 <value>StoredEvent.hbm.xml</value>
                 <value>OrganizationalEntity.hbm.xml</value>
                 <value>TaskInstance.hbm.xml</value>
+                <value>IdentityEntity.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -103,6 +104,10 @@
     <bean id="participantRepository" 
           class="com.bpm4sb.process.infrastructure.persistence.HibernateParticipantRepository" 
           autowire="byName"/>
+    <bean id="userRepository"
+          class="com.bpm4sb.identity.infrastructure.persistence.HibernateUserRepository"/>
+    <bean id="groupRepository"
+          class="com.bpm4sb.identity.infrastructure.persistence.HibernateGroupRepository"/>
     
     <bean id="identificationService" 
           class="com.bpm4sb.process.domain.model.IdentificationService" 
@@ -122,6 +127,16 @@
     <bean id="taskApplicationService" 
           class="com.bpm4sb.process.application.impl.TaskApplicationServiceImpl" 
           autowire="byName"/>
+    <bean name="passwordEncryptionService"
+          class="com.bpm4sb.identity.domain.model.PasswordEncryptionServiceImpl" 
+          autowire="byName">
+        <constructor-arg name="useStrong" value="true"/>
+    </bean>
+    
+    <bean name="identityManagementService" 
+          class="com.bpm4sb.identity.domain.model.impl.IdentityManagementServiceImpl"
+          autowire="byName"/>
+            
     
     <bean id="domainRegistry" 
           class="com.bpm4sb.process.domain.model.DomainRegistry" 
